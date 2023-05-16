@@ -87,7 +87,7 @@ impl DocumentsBatchIndex {
     }
 }
 
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug, PartialEq, thiserror::Error)]
 pub enum Error {
     #[error("Error parsing number {value:?} at line {line}: {error}")]
     ParseFloat { error: std::num::ParseFloatError, line: usize, value: String },

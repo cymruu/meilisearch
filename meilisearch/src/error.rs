@@ -7,7 +7,7 @@ use meilisearch_types::index_uid::{IndexUid, IndexUidFormatError};
 use serde_json::Value;
 use tokio::task::JoinError;
 
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug, PartialEq, thiserror::Error)]
 pub enum MeilisearchHttpError {
     #[error("A Content-Type header is missing. Accepted values for the Content-Type header are: {}",
             .0.iter().map(|s| format!("`{}`", s)).collect::<Vec<_>>().join(", "))]

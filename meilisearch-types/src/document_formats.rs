@@ -4,6 +4,7 @@ use std::fs::File;
 use std::io::{self, Seek, Write};
 use std::marker::PhantomData;
 
+use anyhow::__private::kind::AdhocKind;
 use memmap2::MmapOptions;
 use milli::documents::{DocumentsBatchBuilder, Error};
 use milli::Object;
@@ -15,7 +16,7 @@ use crate::error::{Code, ErrorCode};
 
 type Result<T> = std::result::Result<T, DocumentFormatError>;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum PayloadType {
     Ndjson,
     Json,
@@ -36,6 +37,23 @@ impl fmt::Display for PayloadType {
 pub enum DocumentFormatError {
     Io(io::Error),
     MalformedPayload(Error, PayloadType),
+}
+
+impl PartialEq for DocumentFormatError {
+    fn eq(&self, other: &Self) -> bool {
+        match self {
+            DocumentFormatError::Io(io_error) => match other {
+                DocumentFormatError::Io(io_error_other) => io_error.kind() == io_error_other.kind(),
+                DocumentFormatError::MalformedPayload(_, _) => false,
+            },
+            DocumentFormatError::MalformedPayload(document_error, payload_type) => match other {
+                DocumentFormatError::Io(_) => false,
+                DocumentFormatError::MalformedPayload(document_error_other, payload_type_other) => {
+                    document_error == document_error_other && payload_type == payload_type_other
+                }
+            },
+        }
+    }
 }
 
 impl Display for DocumentFormatError {

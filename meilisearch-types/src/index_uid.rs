@@ -70,7 +70,7 @@ impl From<IndexUid> for String {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct IndexUidFormatError {
     pub invalid_uid: String,
 }
