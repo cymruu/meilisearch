@@ -93,7 +93,8 @@ jobs:
             COMMIT_SHA=${{ github.sha }}
             COMMIT_DATE=${{ steps.build-metadata.outputs.date }}
             GIT_TAG=${{ github.ref_name }}
-
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       # /!\ Don't touch this without checking with Cloud team
       # - name: Send CI information to Cloud team
       #   # Do not send if nightly build (i.e. 'schedule' or 'workflow_dispatch' event)
