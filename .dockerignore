@@ -1,4 +1,9 @@
 target
 Dockerfile
+assets/
+.github/
+data.ms/
+dumps/
 .dockerignore
 .gitignore
+.git/
