@@ -12,8 +12,8 @@ ENV     VERGEN_GIT_SHA=${COMMIT_SHA} VERGEN_GIT_COMMIT_TIMESTAMP=${COMMIT_DATE} 
 ENV     RUSTFLAGS="-C target-feature=-crt-static"
 
 COPY    . .
-RUN     --mount=type=cache,target=/usr/local/cargo/registry \
-        --mount=type=cache,target=/meilisearch/target \
+RUN     --mount=type=cache,id=cargo_registry,target=/usr/local/cargo/registry \
+        --mount=type=cache,id=cargo_build,target=/meilisearch/target \
         set -eux; \
         apkArch="$(apk --print-arch)"; \
         if [ "$apkArch" = "aarch64" ]; then \
