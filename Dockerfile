@@ -19,7 +19,9 @@ RUN     --mount=type=cache,target=/usr/local/cargo/registry \
         if [ "$apkArch" = "aarch64" ]; then \
             export JEMALLOC_SYS_WITH_LG_PAGE=16; \
         fi && \
-        cargo build --release
+        cargo build --release && \
+        # Copy executable out of the cache so it is available in the final image.
+        cp target/release/meilisearch ./meilisearch
 
 # Run
 FROM    alpine:3.16
@@ -32,7 +34,7 @@ RUN     apk update --quiet \
 
 # add meilisearch to the `/bin` so you can run it from anywhere and it's easy
 # to find.
-COPY    --from=compiler /meilisearch/target/release/meilisearch /bin/meilisearch
+COPY    --from=compiler /meilisearch/meilisearch /bin/meilisearch
 # To stay compatible with the older version of the container (pre v0.27.0) we're
 # going to symlink the meilisearch binary in the path to `/meilisearch`
 RUN     ln -s /bin/meilisearch /meilisearch
