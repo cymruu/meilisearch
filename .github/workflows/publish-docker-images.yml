@@ -20,7 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      - name: Cache rust build
+        uses: actions/cache@v3
+        with:
+          path: target/
+          key: ${{ runner.os }}-rust-target-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-rust-target-
       # If we are running a cron or manual job ('schedule' or 'workflow_dispatch' event), it means we are publishing the `nightly` tag, so not considered stable.
       # If we have pushed a tag, and the tag has the v<nmumber>.<number>.<number> format, it means we are publishing an official release, so considered stable.
       # In this situation, we need to set `output.stable` to create/update the following tags (additionally to the `vX.Y.Z` Docker tag):
