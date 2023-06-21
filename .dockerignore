@@ -1,5 +1,4 @@
-target
-Dockerfile
+target/
 assets/
 .github/
 data.ms/
@@ -7,3 +6,4 @@ dumps/
 .dockerignore
 .gitignore
 .git/
+Dockerfile
