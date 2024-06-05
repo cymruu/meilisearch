@@ -2,6 +2,7 @@ use actix_web::web::{self, Data};
 use actix_web::{HttpRequest, HttpResponse};
 use deserr::actix_web::{AwebJson, AwebQueryParameter};
 use index_scheduler::IndexScheduler;
+use meilisearch_types::actions::actions;
 use meilisearch_types::deserr::query_params::Param;
 use meilisearch_types::deserr::{DeserrJsonError, DeserrQueryParamError};
 use meilisearch_types::error::deserr_codes::{
@@ -11,7 +12,6 @@ use meilisearch_types::error::deserr_codes::{
 };
 use meilisearch_types::error::{ErrorCode as _, ResponseError};
 use meilisearch_types::index_uid::IndexUid;
-use meilisearch_types::keys::actions;
 use meilisearch_types::serde_cs::vec::CS;
 use serde_json::Value;
 use tracing::debug;

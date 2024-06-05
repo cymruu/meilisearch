@@ -35,7 +35,7 @@ pub type FacetingSettings = meilisearch_types::settings::FacetingSettings;
 pub type PaginationSettings = meilisearch_types::settings::PaginationSettings;
 
 // everything related to the api keys
-pub type Action = meilisearch_types::keys::Action;
+pub type Action = meilisearch_types::actions::Action;
 pub type IndexUidPattern = meilisearch_types::index_uid_pattern::IndexUidPattern;
 
 // everything related to the errors

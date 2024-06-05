@@ -3,8 +3,8 @@ use actix_web::web::{self, Data};
 use actix_web::HttpResponse;
 use index_scheduler::IndexScheduler;
 use meilisearch_auth::AuthController;
+use meilisearch_types::actions::actions;
 use meilisearch_types::error::ResponseError;
-use meilisearch_types::keys::actions;
 use prometheus::{Encoder, TextEncoder};
 
 use crate::extractors::authentication::policies::ActionPolicy;

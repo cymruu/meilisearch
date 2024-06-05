@@ -209,10 +209,11 @@ pub(crate) mod test {
 
     use big_s::S;
     use maplit::{btreemap, btreeset};
+    use meilisearch_types::actions::Action;
     use meilisearch_types::facet_values_sort::FacetValuesSort;
     use meilisearch_types::features::RuntimeTogglableFeatures;
     use meilisearch_types::index_uid_pattern::IndexUidPattern;
-    use meilisearch_types::keys::{Action, Key};
+    use meilisearch_types::keys::Key;
     use meilisearch_types::milli;
     use meilisearch_types::milli::update::Setting;
     use meilisearch_types::settings::{Checked, FacetingSettings, Settings};

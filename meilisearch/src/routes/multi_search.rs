@@ -3,9 +3,9 @@ use actix_web::web::{self, Data};
 use actix_web::{HttpRequest, HttpResponse};
 use deserr::actix_web::AwebJson;
 use index_scheduler::IndexScheduler;
+use meilisearch_types::actions;
 use meilisearch_types::deserr::DeserrJsonError;
 use meilisearch_types::error::ResponseError;
-use meilisearch_types::keys::actions;
 use serde::Serialize;
 use tracing::debug;
 
@@ -35,7 +35,7 @@ pub struct SearchQueries {
 }
 
 pub async fn multi_search_with_post(
-    index_scheduler: GuardedData<ActionPolicy<{ actions::SEARCH }>, Data<IndexScheduler>>,
+    index_scheduler: GuardedData<ActionPolicy<{ actions::actions::SEARCH }>, Data<IndexScheduler>>,
     search_queue: Data<SearchQueue>,
     params: AwebJson<SearchQueries, DeserrJsonError>,
     req: HttpRequest,

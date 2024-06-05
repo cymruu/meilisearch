@@ -8,8 +8,9 @@ use std::sync::Arc;
 
 use error::{AuthControllerError, Result};
 use maplit::hashset;
+use meilisearch_types::actions::Action;
 use meilisearch_types::index_uid_pattern::IndexUidPattern;
-use meilisearch_types::keys::{Action, CreateApiKey, Key, PatchApiKey};
+use meilisearch_types::keys::{CreateApiKey, Key, PatchApiKey};
 use meilisearch_types::milli::update::Setting;
 use serde::{Deserialize, Serialize};
 pub use store::open_auth_store_env;

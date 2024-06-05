@@ -138,7 +138,7 @@ pub mod policies {
     use meilisearch_auth::{AuthController, AuthFilter, SearchRules};
     use meilisearch_types::error::{Code, ErrorCode};
     // reexport actions in policies in order to be used in routes configuration.
-    pub use meilisearch_types::keys::{actions, Action};
+    pub use meilisearch_types::actions::{actions, Action};
     use serde::{Deserialize, Serialize};
     use time::OffsetDateTime;
     use uuid::Uuid;
