@@ -214,14 +214,14 @@ pub mod policies {
         Ok(api_key_uid)
     }
 
-    fn is_keys_action(action: u8) -> bool {
+    fn is_keys_action(action: u64) -> bool {
         use actions::*;
         matches!(action, KEYS_GET | KEYS_CREATE | KEYS_UPDATE | KEYS_DELETE)
     }
 
-    pub struct ActionPolicy<const A: u8>;
+    pub struct ActionPolicy<const A: u64>;
 
-    impl<const A: u8> Policy for ActionPolicy<A> {
+    impl<const A: u64> Policy for ActionPolicy<A> {
         /// Attempts to grant authentication from a bearer token (that can be a tenant token or an API key), the requested Action,
         /// and a list of requested indexes.
         ///
@@ -294,7 +294,7 @@ pub mod policies {
         }
     }
 
-    impl<const A: u8> ActionPolicy<A> {
+    impl<const A: u64> ActionPolicy<A> {
         fn authenticate_tenant_token(
             auth: &AuthController,
             token: &str,
