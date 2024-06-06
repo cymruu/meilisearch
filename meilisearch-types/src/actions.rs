@@ -6,114 +6,114 @@ use enum_iterator::Sequence;
 use serde::{Deserialize, Serialize};
 
 #[derive(Copy, Clone, Serialize, Deserialize, Debug, Eq, PartialEq, Hash, Sequence, Deserr)]
-#[repr(u8)]
+#[repr(u64)]
 pub enum Action {
     #[serde(rename = "*")]
     #[deserr(rename = "*")]
-    All = 0,
+    All = ActionFlags::All.bits(),
     #[serde(rename = "search")]
     #[deserr(rename = "search")]
-    Search,
+    Search = ActionFlags::Search.bits(),
     #[serde(rename = "documents.*")]
     #[deserr(rename = "documents.*")]
-    DocumentsAll,
+    DocumentsAll = ActionFlags::DocumentsAll.bits(),
     #[serde(rename = "documents.add")]
     #[deserr(rename = "documents.add")]
-    DocumentsAdd,
+    DocumentsAdd = ActionFlags::DocumentsAdd.bits(),
     #[serde(rename = "documents.get")]
     #[deserr(rename = "documents.get")]
-    DocumentsGet,
+    DocumentsGet = ActionFlags::DocumentsGet.bits(),
     #[serde(rename = "documents.delete")]
     #[deserr(rename = "documents.delete")]
-    DocumentsDelete,
+    DocumentsDelete = ActionFlags::DocumentsDelete.bits(),
     #[serde(rename = "indexes.*")]
     #[deserr(rename = "indexes.*")]
-    IndexesAll,
+    IndexesAll = ActionFlags::IndexesAll.bits(),
     #[serde(rename = "indexes.create")]
     #[deserr(rename = "indexes.create")]
-    IndexesAdd,
+    IndexesAdd = ActionFlags::IndexesAdd.bits(),
     #[serde(rename = "indexes.get")]
     #[deserr(rename = "indexes.get")]
-    IndexesGet,
+    IndexesGet = ActionFlags::IndexesGet.bits(),
     #[serde(rename = "indexes.update")]
     #[deserr(rename = "indexes.update")]
-    IndexesUpdate,
+    IndexesUpdate = ActionFlags::IndexesUpdate.bits(),
     #[serde(rename = "indexes.delete")]
     #[deserr(rename = "indexes.delete")]
-    IndexesDelete,
+    IndexesDelete = ActionFlags::IndexesDelete.bits(),
     #[serde(rename = "indexes.swap")]
     #[deserr(rename = "indexes.swap")]
-    IndexesSwap,
+    IndexesSwap = ActionFlags::IndexesSwap.bits(),
     #[serde(rename = "tasks.*")]
     #[deserr(rename = "tasks.*")]
-    TasksAll,
+    TasksAll = ActionFlags::TasksAll.bits(),
     #[serde(rename = "tasks.cancel")]
     #[deserr(rename = "tasks.cancel")]
-    TasksCancel,
+    TasksCancel = ActionFlags::TasksCancel.bits(),
     #[serde(rename = "tasks.delete")]
     #[deserr(rename = "tasks.delete")]
-    TasksDelete,
+    TasksDelete = ActionFlags::TasksDelete.bits(),
     #[serde(rename = "tasks.get")]
     #[deserr(rename = "tasks.get")]
-    TasksGet,
+    TasksGet = ActionFlags::TasksGet.bits(),
     #[serde(rename = "settings.*")]
     #[deserr(rename = "settings.*")]
-    SettingsAll,
+    SettingsAll = ActionFlags::SettingsAll.bits(),
     #[serde(rename = "settings.get")]
     #[deserr(rename = "settings.get")]
-    SettingsGet,
+    SettingsGet = ActionFlags::SettingsGet.bits(),
     #[serde(rename = "settings.update")]
     #[deserr(rename = "settings.update")]
-    SettingsUpdate,
+    SettingsUpdate = ActionFlags::SettingsUpdate.bits(),
     #[serde(rename = "stats.*")]
     #[deserr(rename = "stats.*")]
-    StatsAll,
+    StatsAll = ActionFlags::StatsAll.bits(),
     #[serde(rename = "stats.get")]
     #[deserr(rename = "stats.get")]
-    StatsGet,
+    StatsGet = ActionFlags::StatsGet.bits(),
     #[serde(rename = "metrics.*")]
     #[deserr(rename = "metrics.*")]
-    MetricsAll,
+    MetricsAll = ActionFlags::MetricsAll.bits(),
     #[serde(rename = "metrics.get")]
     #[deserr(rename = "metrics.get")]
-    MetricsGet,
+    MetricsGet = ActionFlags::MetricsGet.bits(),
     #[serde(rename = "dumps.*")]
     #[deserr(rename = "dumps.*")]
-    DumpsAll,
+    DumpsAll = ActionFlags::DumpsAll.bits(),
     #[serde(rename = "dumps.create")]
     #[deserr(rename = "dumps.create")]
-    DumpsCreate,
+    DumpsCreate = ActionFlags::DumpsCreate.bits(),
     #[serde(rename = "snapshots.*")]
     #[deserr(rename = "snapshots.*")]
-    SnapshotsAll,
+    SnapshotsAll = ActionFlags::SnapshotsAll.bits(),
     #[serde(rename = "snapshots.create")]
     #[deserr(rename = "snapshots.create")]
-    SnapshotsCreate,
+    SnapshotsCreate = ActionFlags::SnapshotsCreate.bits(),
     #[serde(rename = "version")]
     #[deserr(rename = "version")]
-    Version,
+    Version = ActionFlags::Version.bits(),
     #[serde(rename = "keys.create")]
     #[deserr(rename = "keys.create")]
-    KeysAdd,
+    KeysAdd = ActionFlags::KeysAdd.bits(),
     #[serde(rename = "keys.get")]
     #[deserr(rename = "keys.get")]
-    KeysGet,
+    KeysGet = ActionFlags::KeysGet.bits(),
     #[serde(rename = "keys.update")]
     #[deserr(rename = "keys.update")]
-    KeysUpdate,
+    KeysUpdate = ActionFlags::KeysUpdate.bits(),
     #[serde(rename = "keys.delete")]
     #[deserr(rename = "keys.delete")]
-    KeysDelete,
+    KeysDelete = ActionFlags::KeysDelete.bits(),
     #[serde(rename = "experimental.get")]
     #[deserr(rename = "experimental.get")]
-    ExperimentalFeaturesGet,
+    ExperimentalFeaturesGet = ActionFlags::ExperimentalFeaturesGet.bits(),
     #[serde(rename = "experimental.update")]
     #[deserr(rename = "experimental.update")]
-    ExperimentalFeaturesUpdate,
+    ExperimentalFeaturesUpdate = ActionFlags::ExperimentalFeaturesUpdate.bits(),
 }
 
 impl Action {
-    pub const fn from_repr(repr: u8) -> Option<Self> {
+    pub const fn from_repr(repr: u64) -> Option<Self> {
         use actions::*;
         match repr {
             ALL => Some(Self::All),
@@ -153,47 +153,47 @@ impl Action {
         }
     }
 
-    pub const fn repr(&self) -> u8 {
-        *self as u8
+    pub const fn repr(&self) -> u64 {
+        *self as u64
     }
 }
 
 pub mod actions {
     use super::Action::*;
 
-    pub(crate) const ALL: u8 = All.repr();
-    pub const SEARCH: u8 = Search.repr();
-    pub const DOCUMENTS_ALL: u8 = DocumentsAll.repr();
-    pub const DOCUMENTS_ADD: u8 = DocumentsAdd.repr();
-    pub const DOCUMENTS_GET: u8 = DocumentsGet.repr();
-    pub const DOCUMENTS_DELETE: u8 = DocumentsDelete.repr();
-    pub const INDEXES_ALL: u8 = IndexesAll.repr();
-    pub const INDEXES_CREATE: u8 = IndexesAdd.repr();
-    pub const INDEXES_GET: u8 = IndexesGet.repr();
-    pub const INDEXES_UPDATE: u8 = IndexesUpdate.repr();
-    pub const INDEXES_DELETE: u8 = IndexesDelete.repr();
-    pub const INDEXES_SWAP: u8 = IndexesSwap.repr();
-    pub const TASKS_ALL: u8 = TasksAll.repr();
-    pub const TASKS_CANCEL: u8 = TasksCancel.repr();
-    pub const TASKS_DELETE: u8 = TasksDelete.repr();
-    pub const TASKS_GET: u8 = TasksGet.repr();
-    pub const SETTINGS_ALL: u8 = SettingsAll.repr();
-    pub const SETTINGS_GET: u8 = SettingsGet.repr();
-    pub const SETTINGS_UPDATE: u8 = SettingsUpdate.repr();
-    pub const STATS_ALL: u8 = StatsAll.repr();
-    pub const STATS_GET: u8 = StatsGet.repr();
-    pub const METRICS_ALL: u8 = MetricsAll.repr();
-    pub const METRICS_GET: u8 = MetricsGet.repr();
-    pub const DUMPS_ALL: u8 = DumpsAll.repr();
-    pub const DUMPS_CREATE: u8 = DumpsCreate.repr();
-    pub const SNAPSHOTS_CREATE: u8 = SnapshotsCreate.repr();
-    pub const VERSION: u8 = Version.repr();
-    pub const KEYS_CREATE: u8 = KeysAdd.repr();
-    pub const KEYS_GET: u8 = KeysGet.repr();
-    pub const KEYS_UPDATE: u8 = KeysUpdate.repr();
-    pub const KEYS_DELETE: u8 = KeysDelete.repr();
-    pub const EXPERIMENTAL_FEATURES_GET: u8 = ExperimentalFeaturesGet.repr();
-    pub const EXPERIMENTAL_FEATURES_UPDATE: u8 = ExperimentalFeaturesUpdate.repr();
+    pub(crate) const ALL: u64 = All.repr();
+    pub const SEARCH: u64 = Search.repr();
+    pub const DOCUMENTS_ALL: u64 = DocumentsAll.repr();
+    pub const DOCUMENTS_ADD: u64 = DocumentsAdd.repr();
+    pub const DOCUMENTS_GET: u64 = DocumentsGet.repr();
+    pub const DOCUMENTS_DELETE: u64 = DocumentsDelete.repr();
+    pub const INDEXES_ALL: u64 = IndexesAll.repr();
+    pub const INDEXES_CREATE: u64 = IndexesAdd.repr();
+    pub const INDEXES_GET: u64 = IndexesGet.repr();
+    pub const INDEXES_UPDATE: u64 = IndexesUpdate.repr();
+    pub const INDEXES_DELETE: u64 = IndexesDelete.repr();
+    pub const INDEXES_SWAP: u64 = IndexesSwap.repr();
+    pub const TASKS_ALL: u64 = TasksAll.repr();
+    pub const TASKS_CANCEL: u64 = TasksCancel.repr();
+    pub const TASKS_DELETE: u64 = TasksDelete.repr();
+    pub const TASKS_GET: u64 = TasksGet.repr();
+    pub const SETTINGS_ALL: u64 = SettingsAll.repr();
+    pub const SETTINGS_GET: u64 = SettingsGet.repr();
+    pub const SETTINGS_UPDATE: u64 = SettingsUpdate.repr();
+    pub const STATS_ALL: u64 = StatsAll.repr();
+    pub const STATS_GET: u64 = StatsGet.repr();
+    pub const METRICS_ALL: u64 = MetricsAll.repr();
+    pub const METRICS_GET: u64 = MetricsGet.repr();
+    pub const DUMPS_ALL: u64 = DumpsAll.repr();
+    pub const DUMPS_CREATE: u64 = DumpsCreate.repr();
+    pub const SNAPSHOTS_CREATE: u64 = SnapshotsCreate.repr();
+    pub const VERSION: u64 = Version.repr();
+    pub const KEYS_CREATE: u64 = KeysAdd.repr();
+    pub const KEYS_GET: u64 = KeysGet.repr();
+    pub const KEYS_UPDATE: u64 = KeysUpdate.repr();
+    pub const KEYS_DELETE: u64 = KeysDelete.repr();
+    pub const EXPERIMENTAL_FEATURES_GET: u64 = ExperimentalFeaturesGet.repr();
+    pub const EXPERIMENTAL_FEATURES_UPDATE: u64 = ExperimentalFeaturesUpdate.repr();
 }
 
 #[derive(Copy, Clone, Serialize, Deserialize, Debug, Eq, PartialEq, Hash)]
@@ -201,7 +201,7 @@ pub struct ActionFlags(u64);
 
 bitflags! {
     impl ActionFlags:u64{
-        const Search = 1<<0;
+        const Search = 1 << 0;
         const DocumentsAll = 1 << 1;
         const DocumentsAdd = 1 << 2;
         const DocumentsGet = 1 << 3;
